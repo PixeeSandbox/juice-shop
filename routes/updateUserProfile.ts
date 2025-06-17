@@ -20,9 +20,8 @@ module.exports = function updateUserProfile () {
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
         if (user != null) {
           challengeUtils.solveIf(challenges.csrfChallenge, () => {
-            return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
-              (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
-              req.body.username !== user.username
+            // Ensure the 'htmledit.squarefree.com' hostname is updated if needed
+            return ((req.headers.origin && ["htmledit.squarefree.com"].includes(new URL(req.headers.origin).hostname)) || (req.headers.referer && ["htmledit.squarefree.com"].includes(new URL(req.headers.referer).hostname))) && req.body.username !== user.username;
           })
           void user.update({ username: req.body.username }).then((savedUser: UserModel) => {
             // @ts-expect-error FIXME some properties missing in savedUser
