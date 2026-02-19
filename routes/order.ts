@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import xml2js from 'xml2js'
 import path = require('path')
 import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'

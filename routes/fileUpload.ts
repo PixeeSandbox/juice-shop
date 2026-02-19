@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import xml2js from 'xml2js'
 import os from 'os'
 import fs = require('fs')
 import challengeUtils = require('../lib/challengeUtils')

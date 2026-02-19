@@ -4,6 +4,7 @@
  */
 
 /* jslint node: true */
+import _ from 'underscore'
 import packageJson from '../package.json'
 import fs from 'fs'
 import logger from './logger'
@@ -23,6 +24,9 @@ const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
 
 export const queryResultToJson = (data: any, status: string = 'success') => {
   let wrappedData: any = {}
+  if (_.isString(data)) {
+    return { status, data }
+  }
   if (data) {
     if (!data.length && data.dataValues) {
       wrappedData = data.dataValues

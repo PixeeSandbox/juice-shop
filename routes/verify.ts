@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import xml2js from 'xml2js'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Challenge, type Product } from '../data/types'
 import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import xml2js from 'xml2js'
 import config from 'config'
 import colors from 'colors/safe'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
