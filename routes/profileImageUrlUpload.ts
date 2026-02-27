@@ -6,7 +6,6 @@
 import fs = require('fs')
 import { type Request, type Response, type NextFunction } from 'express'
 import logger from '../lib/logger'
-
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
@@ -15,7 +14,11 @@ const request = require('request')
 module.exports = function profileImageUrlUpload () {
   return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.imageUrl !== undefined) {
+      const allowedUrls = ['https://example.com/images/', 'https://anotherexample.com/images/']
       const url = req.body.imageUrl
+      if (!allowedUrls.some(allowedUrl => url.startsWith(allowedUrl))) {
+        return res.status(400).send('Invalid URL')
+      }
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
